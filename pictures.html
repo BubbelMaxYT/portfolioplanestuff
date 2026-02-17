@@ -122,8 +122,8 @@
         albumLabel: "Image %1 of %2"
     });
 
-    // Gallery images
-    const imageFolder = '/';
+
+    // Gallery images (in same folder as pictures.html)
     const images = [
         '1.jpg','2.jpg','3.jpg','4.jpg','5.jpg','6.jpg',
         '7.jpg','8.jpg','9.jpg','10.jpg','11.jpg','12.jpg',
@@ -138,12 +138,12 @@
         item.className = 'gallery-item';
 
         const link = document.createElement('a');
-        link.href = imageFolder + file;
+        link.href = file; // ✅ file in same folder
         link.setAttribute('data-lightbox', 'aviation');
         link.setAttribute('data-title', 'Aviation Photography by Max Gerlach');
 
         const img = document.createElement('img');
-        img.src = imageFolder + file;
+        img.src = file; // ✅ file in same folder
         img.alt = file;
         img.loading = "lazy";
 
@@ -155,4 +155,3 @@
 
 </body>
 </html>
-
