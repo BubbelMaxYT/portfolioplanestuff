@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery — Max Gerlach Aviation Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Gallery-specific styles (kept in the same visual language as the rest of the site) ── */
+    #page-gallery {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    .gallery-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      font-weight: 400;
+      margin-bottom: 0.5rem;
+    }
+
+    .gallery-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    /* Category filter pills */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      background: transparent;
+      border: 1px solid #ccc;
+      border-radius: 999px;
+      padding: 0.5rem 1.1rem;
+      cursor: pointer;
+      color: #333;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      border-color: #222;
+    }
+
+    .filter-btn.active {
+      background: #222;
+      border-color: #222;
+      color: #fff;
+    }
+
+    /* Masonry-ish responsive grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: zoom-in;
+      background: #eee;
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .gallery-item .item-tag {
+      position: absolute;
+      bottom: 0.6rem;
+      left: 0.6rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .gallery-item.hidden {
+      display: none;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 1000;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      transform: scale(0.96);
+      transition: transform 0.25s ease;
+    }
+
+    .lightbox.open img {
+      transform: scale(1);
+    }
+
+    .lightbox-close,
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 2rem;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1;
+      padding: 0.5rem;
+      opacity: 0.8;
+      transition: opacity 0.2s ease;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      opacity: 1;
+    }
+
+    .lightbox-close {
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 2.2rem;
+    }
+
+    .lightbox-prev {
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+    }
+
+    .lightbox-next {
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #ddd;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      .lightbox-prev, .lightbox-next { font-size: 2rem; }
+      #page-gallery { padding: 2rem 1rem 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header id="header">
+  <a class="site-name" href="index.html">Max Gerlach</a>
+  <nav>
+    <a href="gallery.html" id="t-nav-gallery">Gallery</a>
+    <a href="contact.html#about" id="t-nav-about">About</a>
+    <a href="contact.html" id="t-nav-contact">Contact</a>
+    <button id="langToggle" class="lang-toggle" onclick="toggleLang()">NL</button>
+  </nav>
+</header>
+
+<!-- GALLERY -->
+<div id="page-gallery">
+  <h1 class="gallery-heading" id="t-gal-heading">Gallery</h1>
+  <p class="gallery-sub" id="t-gal-sub">A collection of my aviation photography — historic aircraft, business aviation, and air-to-air shots.</p>
+   <p class="gallery-sub" id="t-gal-sub">This is a brief showcase of my work, if more is desired, please <a href="contact.html">get in touch</a>.</p>
+
+
+  <div class="filter-bar" id="filterBar">
+    <!-- filled in by JS based on categories found -->
+  </div>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- filled in by JS from the IMAGES list below -->
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev">&#10094;</button>
+  <img id="lightboxImg" src="" alt="" />
+  <button class="lightbox-next" id="lightboxNext">&#10095;</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Max Gerlach Photography</span>
+  <span>Breda — EHSE, Netherlands</span>
+  <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () =>
+    document.getElementById('header').classList.toggle('bordered', window.scrollY > 4)
+  );
+
+  const IMAGES = [
+    { src: "Pictures/Business/LX-FLJ1.jpg", category: "Business" },
+    { src: "Pictures/Business/LX-FLJ2.jpg", category: "Business" },
+    { src: "Pictures/Business/PH-SCH1.jpg", category: "Business" },   
+    { src: "Pictures/Business/PH-SCH2.jpg", category: "Business" },   
+    { src: "Pictures/Business/PH-SCH4.jpg", category: "Business" }, 
+    { src: "Pictures/Business/PH-PAJ1.jpg", category: "Business" }, 
+    { src: "Pictures/Business/LX-FLI1.jpg", category: "Business" }, 
+    { src: "Pictures/Business/LX-FLI2.jpg", category: "Business" },  
+    { src: "Pictures/Historic/N1944S-1.jpg", category: "Historic" },
+    { src: "Pictures/Historic/D-EPKS-1.jpg", category: "Historic" },
+    { src: "Pictures/Historic/Form.jpg", category: "Historic" },
+    { src: "Pictures/Historic/N1944S-1.jpg", category: "Historic" },
+    { src: "Pictures/Historic/OO-WPB.jpg", category: "Historic" },
+    { src: "Pictures/Historic/PH-FBO.jpg", category: "Historic" },
+    { src: "Pictures/Historic/Tiger1.jpg", category: "Historic" },
+        { src: "Pictures/GA/D-EHPT-1.jpg", category: "General Aviation" },
+        { src: "Pictures/GA/N22ZF-1.jpg", category: "General Aviation" },
+        { src: "Pictures/GA/N341GG-3.jpg", category: "General Aviation" },
+        { src: "Pictures/GA/N342CA-1.jpg", category: "General Aviation" },
+
+    { src: "Pictures/A2A/D-EPKS.jpg", category: "Air to Air" },
+    { src: "Pictures/A2A/OO-WPB.jpg", category: "Air to Air" },
+    { src: "Pictures/A2A/N1944S-1.jpg", category: "Air to Air" },
+    { src: "Pictures/A2A/N1944S-2.jpg", category: "Air to Air" },
+    { src: "Pictures/A2A/PH-4Q3.jpg", category: "Air to Air" },
+    { src: "Pictures/A2A/PH-FBO.jpg", category: "Air to Air" },
+        { src: "Pictures/Military/FA52_FA57_FL009_FL012_1.jpg", category: "Military" },
+        { src: "Pictures/Military/Patrouille_1.jpg", category: "Military" },
+        { src: "Pictures/Military/Patrouille_2.jpg", category: "Military" },
+
+  ];
+
+  const grid = document.getElementById('galleryGrid');
+  const filterBar = document.getElementById('filterBar');
+
+  function buildFilters() {
+    const categories = ['All', ...new Set(IMAGES.map(i => i.category))];
+    filterBar.innerHTML = '';
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn' + (cat === 'All' ? ' active' : '');
+      btn.textContent = cat;
+      btn.dataset.filter = cat;
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilter(cat);
+      });
+      filterBar.appendChild(btn);
+    });
+  }
+
+  function buildGrid() {
+    grid.innerHTML = '';
+    IMAGES.forEach((img, index) => {
+      const item = document.createElement('div');
+      item.className = 'gallery-item';
+      item.dataset.category = img.category;
+      item.dataset.index = index;
+      item.innerHTML = `
+        <img src="${img.src}" alt="${img.category}" loading="lazy" />
+        <span class="item-tag">${img.category}</span>
+      `;
+      item.addEventListener('click', () => openLightbox(index));
+      grid.appendChild(item);
+    });
+  }
+
+  function applyFilter(cat) {
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      item.classList.toggle('hidden', cat !== 'All' && item.dataset.category !== cat);
+    });
+  }
+
+  /* ── Lightbox logic ── */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  let currentIndex = 0;
+
+  function visibleIndices() {
+    return IMAGES.map((_, i) => i).filter(i => {
+      const el = grid.querySelector(`[data-index="${i}"]`);
+      return el && !el.classList.contains('hidden');
+    });
+  }
+
+  function openLightbox(index) {
+    currentIndex = index;
+    updateLightboxImage();
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function updateLightboxImage() {
+    const img = IMAGES[currentIndex];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.category;
+    lightboxCaption.textContent = img.category;
+  }
+
+  function step(dir) {
+    const visible = visibleIndices();
+    if (visible.length === 0) return;
+    const pos = visible.indexOf(currentIndex);
+    const nextPos = (pos + dir + visible.length) % visible.length;
+    currentIndex = visible[nextPos];
+    updateLightboxImage();
+  }
+
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', () => step(-1));
+  document.getElementById('lightboxNext').addEventListener('click', () => step(1));
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  buildFilters();
+  buildGrid();
+
+  /* ── LANGUAGE TOGGLE ── */
+  const translations = {
+    en: {
+      't-nav-gallery': 'Gallery',
+      't-nav-about':   'About',
+      't-nav-contact': 'Contact',
+      't-gal-heading': 'Gallery',
+      't-gal-sub':     'A collection of my aviation photography — historic aircraft, business aviation, and air-to-air shots.',
+    },
+    nl: {
+      't-nav-gallery': 'Galerij',
+      't-nav-about':   'Over mij',
+      't-nav-contact': 'Contact',
+      't-gal-heading': 'Galerij',
+      't-gal-sub':     "Een collectie van mijn luchtvaartfotografie — historische vliegtuigen, zakelijke luchtvaart en lucht-tot-lucht opnames.",
+    }
+  };
+
+  let currentLang = 'en';
+
+  function applyLang(lang) {
+    const dict = translations[lang];
+    Object.keys(dict).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = dict[id];
+    });
+    document.documentElement.lang = lang;
+    document.getElementById('langToggle').textContent = lang === 'en' ? 'NL' : 'EN';
+  }
+
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'nl' : 'en';
+    applyLang(currentLang);
+  }
+</script>
+</body>
+</html>

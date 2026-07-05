@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About & Contact — Max Gerlach Aviation Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<header id="header" class="bordered">
+  <a class="site-name" href="index.html">Max Gerlach</a>
+  <nav>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html#about" class="active">About</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+
+
+<!-- CONTACT -->
+<div id="page-contact" class="page active">
+  <h1>Contact</h1>
+
+  <ul class="services">
+    <li>
+      <span class="service-title">Air-to-Air Shoots</span>
+      <span class="service-desc">Coordinated aerial photography sessions for aircraft owners, operators and museums. Contact me to discuss logistics and planning.</span>
+    </li>
+    <li>
+      <span class="service-title">Commissions</span>
+      <span class="service-desc">Custom photography projects for aviation enthusiasts, museums and organizations. I am available for commissions throughout the Netherlands.</span>
+    </li>
+      <li>
+      <span class="service-title">Quote</span>
+      <span class="service-desc">Request a personalized quote for your photography needs without obligation. </span>
+    </li>
+        <li>
+      <span class="service-title">Image Licensing</span>
+      <span class="service-desc">Individual photos available for editorial, commercial or personal use. Prints, publications, advertisements and wall art welcome.</span>
+    </li>
+  </ul>
+  
+
+<!-- ABOUT -->
+<div id="page-about" class="page active">
+  <h1 id="about">About</h1>
+  <img src="https://airplanephotography.nl/images/ProfilePicture.jpeg" alt="Max Gerlach" />
+  <p>I am Max Gerlach, an aviation photographer based in Breda, the Netherlands. Since I was young I have loved planes. Over the past years I have started photographing aircraft at my home airport, <strong>Breda International Airport (EHSE)</strong>.</p>
+  <p>My main interest lies in <strong>historic aircraft</strong> — especially those of the <strong>Vliegend Museum Seppe</strong> based at EHSE. I have recently become a volunteer at the museum and serve as the <strong>Flight Coördinator</strong>.</p>
+  <p>My photos document warbirds, vintage machines and everyday airport operations. I shoot at air shows, fly-ins and museum events throughout the Netherlands.</p>
+  <p>All photos on this site are available for licensing. Reach me at <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>.</p>
+</div>
+
+  <div class="email-block">
+    <p>Get in touch directly — I'll get back to you as soon as possible.</p>
+    <a class="email-link" href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>
+    <div class="contact-meta">
+      Breda International Airport (EHSE)<br>
+      Breda, the Netherlands
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Max Gerlach Photography</span>
+  <span>Breda — EHSE, Netherlands</span>
+  <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () =>
+    document.getElementById('header').classList.toggle('bordered', window.scrollY > 4)
+  );
+</script>
+</body>
+</html>

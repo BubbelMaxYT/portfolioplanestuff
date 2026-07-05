@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Max Gerlach — Aviation Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- NAV -->
+<header id="header">
+  <a class="site-name" href="index.html">Max Gerlach</a>
+  <nav>
+    <a href="gallery.html" id="t-nav-gallery">Gallery</a>
+    <a href="contact.html#about" id="t-nav-about">About</a>
+    <a href="contact.html" id="t-nav-contact">Contact</a>
+    <button id="langToggle" class="lang-toggle" onclick="toggleLang()">NL</button>
+  </nav>
+</header>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <h1 id="t-h1">Max Gerlach</h1>
+  <div class="home-layout">
+    <div class="home-text">
+      <p id="t-p1">I am an aviation enthusiast and photographer based in Zevenbergen, the Netherlands. My interest in aircraft started at a young age, and over the past years I have been photographing at my home airport, <strong>Breda International Airport (EHSE)</strong>.</p>
+      <p id="t-p2">My main focus is on historic aircraft — in particular the collection of the <strong>Vliegend Museum Seppe</strong>, based at EHSE. I recently became a volunteer at the museum, where I serve as <strong>Flight Coördinator</strong>.</p>
+      <p id="t-p3">My photos document warbirds, vintage machines and everyday operations at EHSE and beyond — at air shows, fly-ins and local events throughout the Netherlands.</p>
+      <p id="t-p4"><strong><B>I am available for commissions and events throughout the Netherlands. Take a look at my work in the gallery below!</strong></B></p>
+      <p id="t-p5"><em>Hope to see you at the next flight!</em><br><strong>Max Gerlach</strong></p>
+      <div class="home-foot">
+        <span id="t-contact">Contact: <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a></span>
+        <span id="t-location">Breda International Airport (EHSE), Netherlands</span>
+      </div>
+    </div>
+    <img class="hero-photo"
+         src="Hero/me.jpg"
+         alt="That's me" />
+  </div>
+
+  <!-- SNEAK PEEK -->
+  <div class="preview-section">
+    <h2 class="preview-heading" id="t-preview-heading">From the Gallery</h2>
+    <div class="preview-grid">
+      <a class="preview-thumb" href="gallery.html">
+        <img src="Pictures/Business/LX-FLJ1.jpg" alt="" loading="lazy" />
+        <span class="preview-tag" id="t-tag-business">Business</span>
+      </a>
+      <a class="preview-thumb" href="gallery.html">
+        <img src="Pictures/Business/LX-FLJ2.jpg" alt="Historic aircraft" loading="lazy" />
+        <span class="preview-tag" id="t-tag-business">Business</span>
+      </a>
+      <a class="preview-thumb" href="gallery.html">
+        <img src="Pictures/Historic/N1944S-1.jpg" alt="Historic aircraft" loading="lazy" />
+        <span class="preview-tag" id="t-tag-historic1">Historic</span>
+      </a>
+      <a class="preview-thumb" href="gallery.html">
+        <img src="Pictures/Historic/D-EPKS-1.jpg" alt="Historic aircraft" loading="lazy" />
+        <span class="preview-tag" id="t-tag-historic2">Historic</span>
+      </a>
+      <a class="preview-thumb" href="gallery.html">
+        <img src="Pictures/A2A/D-EPKS.jpg" alt="Air to air photograph" loading="lazy" />
+        <span class="preview-tag" id="t-tag-airtoair1">Air to Air</span>
+      </a>
+      <a class="preview-thumb" href="gallery.html">
+        <img src="Pictures/A2A/OO-WPB.jpg" alt="Air to air photograph" loading="lazy" />
+        <span class="preview-tag" id="t-tag-airtoair2">Air to Air</span>
+      </a>
+    </div>
+    <a class="gallery-cta" href="gallery.html" id="t-cta">Check the Full Gallery →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Max Gerlach Photography</span>
+  <span>Breda — EHSE, Netherlands</span>
+  <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () =>
+    document.getElementById('header').classList.toggle('bordered', window.scrollY > 4)
+  );
+
+  /* ── LANGUAGE TOGGLE ── */
+  const translations = {
+    en: {
+      't-nav-gallery':   'Gallery',
+      't-nav-about':     'About',
+      't-nav-contact':   'Contact',
+      't-h1':            'Max Gerlach',
+      't-p1':            'I am an aviation enthusiast and photographer based in Breda, the Netherlands. My interest in aircraft started at a young age, and over the past years I have been photographing at my home airport, <strong>Breda International Airport (EHSE)</strong>.',
+      't-p2':            'My main focus is on <strong>historic aircraft</strong> — in particular the collection of the <strong>Vliegend Museum Seppe</strong>, based at EHSE. I recently became a volunteer at the museum, where I serve as <strong>Flight Coördinator</strong>.',
+      't-p3':            'My photos document warbirds, vintage machines and everyday operations at EHSE and beyond — at air shows, fly-ins and local events throughout the Netherlands.',
+      't-p4':            'I am available for commissions and events throughout the Netherlands. Take a look at my work in the gallery below!',
+      't-p5':            '<em>Hope to see you at the next flight!</em><br><strong>Max Gerlach</strong>',
+      't-contact':       'Contact: <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>',
+      't-location':      'Breda International Airport (EHSE), Netherlands',
+      't-preview-heading':'From the Gallery',
+      't-tag-historic1': 'Historic',
+      't-tag-historic2': 'Historic',
+      't-tag-historic3': 'Historic',
+      't-tag-business':  'Business',
+      't-tag-airtoair1': 'Air to Air',
+      't-tag-airtoair2': 'Air to Air',
+      't-cta':           'Check the Full Gallery →',
+    },
+    nl: {
+      't-nav-gallery':   'Galerij',
+      't-nav-about':     'Over mij',
+      't-nav-contact':   'Contact',
+      't-h1':            'Max Gerlach',
+      't-p1':            'Ik ben een luchtvaartliefhebber en fotograaf, woonachtig in Breda. Mijn interesse in vliegtuigen begon al op jonge leeftijd, en de afgelopen jaren fotografeer ik op mijn thuisbasis, <strong>Breda International Airport (EHSE)</strong>.',
+      't-p2':            'Mijn voornaamste interesse ligt bij <strong>historische vliegtuigen</strong> — met name de collectie van het <strong>Vliegend Museum Seppe</strong>, gevestigd op EHSE. Sinds kort ben ik vrijwilliger bij het museum, waar ik de rol van <strong>Flight Coördinator</strong> vervul.',
+      't-p3':            "Mijn foto's leggen warbirds, klassieke toestellen en de dagelijkse gang van zaken op EHSE en daarbuiten vast — op luchtshows, fly-ins en lokale evenementen door heel Nederland.",
+      't-p4':            '<strong><B>Ik ben beschikbaar voor opdrachten en evenementen door heel Nederland. Kijk eens in de galerij hieronder!</strong></B>',
+      't-p5':            '<em>Hopelijk zie ik je bij de volgende vlucht!</em><br><strong>Max Gerlach</strong>',
+      't-contact':       'Contact: <a href="mailto:mgerlach0168@gmail.com">mgerlach0168@gmail.com</a>',
+      't-location':      'Breda International Airport (EHSE), Nederland',
+      't-preview-heading':'Uit de Galerij',
+      't-tag-historic1': 'Historisch',
+      't-tag-historic2': 'Historisch',
+      't-tag-historic3': 'Historisch',
+      't-tag-business':  'Zakelijk',
+      't-tag-airtoair1': 'Lucht-tot-lucht',
+      't-tag-airtoair2': 'Lucht-tot-lucht',
+      't-cta':           'Bekijk de Volledige Galerij →',
+    }
+  };
+
+  let currentLang = 'en';
+
+  function applyLang(lang) {
+    const dict = translations[lang];
+    Object.keys(dict).forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = dict[id];
+    });
+    document.documentElement.lang = lang;
+    document.getElementById('langToggle').textContent = lang === 'en' ? 'NL' : 'EN';
+  }
+
+  function toggleLang() {
+    currentLang = currentLang === 'en' ? 'nl' : 'en';
+    applyLang(currentLang);
+  }
+</script>
+</body>
+</html>
